@@ -1,0 +1,11 @@
+* TODO Sign in
+* TODO Sign out
+* TODO Create Game
+* TODO Join Game using a URL
+* TODO Spectate
+* TODO Chat in Game
+* TODO Register a user
+* TODO Add friends from the Game screen
+* TODO Top Wins Page
+* TODO User Match History
+* TODO User Replay Page
