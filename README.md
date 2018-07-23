@@ -1,5 +1,9 @@
 # ConnectFour
 
+I'm currently starting out with Phoenix/Elixir.
+
+## Phoenix
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
