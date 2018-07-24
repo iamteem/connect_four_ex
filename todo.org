@@ -1,10 +1,11 @@
+* DOING Register a user
+  - State "DOING"      from "TODO"       [2018-07-23 Mon 23:59]
 * TODO Sign in
 * TODO Sign out
 * TODO Create Game
 * TODO Join Game using a URL
 * TODO Spectate
 * TODO Chat in Game
-* TODO Register a user
 * TODO Add friends from the Game screen
 * TODO Top Wins Page
 * TODO User Match History

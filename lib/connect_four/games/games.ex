@@ -293,4 +293,7 @@ defmodule ConnectFour.Games do
   def change_move(%Move{} = move) do
     Move.changeset(move, %{})
   end
+
+  def start_game(_) do
+  end
 end

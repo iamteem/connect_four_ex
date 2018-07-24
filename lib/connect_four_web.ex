@@ -23,6 +23,7 @@ defmodule ConnectFourWeb do
       import Plug.Conn
       import ConnectFourWeb.Router.Helpers
       import ConnectFourWeb.Gettext
+      import ConnectFourWeb.Auth, only: [require_login: 2]
     end
   end
 
@@ -40,6 +41,7 @@ defmodule ConnectFourWeb do
       import ConnectFourWeb.Router.Helpers
       import ConnectFourWeb.ErrorHelpers
       import ConnectFourWeb.Gettext
+      use ConnectFourWeb.MaterialInputHelpers
     end
   end
 
@@ -48,6 +50,7 @@ defmodule ConnectFourWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import ConnectFourWeb.Auth, only: [require_login: 2]
     end
   end
 

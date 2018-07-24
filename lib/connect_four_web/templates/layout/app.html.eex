@@ -7,21 +7,41 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello ConnectFour!</title>
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <div class="row">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <div class="col s12">
+              <a href="/" class="brand-logo">Connect Four</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <%= if @current_user do %>
+                  <li>
+                    <%= link "Sign Out", to: session_path(@conn, :delete, @current_user), method: :delete %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link "Sign In", to: session_path(@conn, :new) %>
+                  </li>
+                  <li>
+                    <%= link "Register", to: user_path(@conn, :new) %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
 
+    <div class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 

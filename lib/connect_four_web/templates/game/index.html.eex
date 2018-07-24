@@ -1,0 +1,6 @@
+<%= form_for @changeset, game_path(@conn, :create), fn f -> %>
+  <%= submit class: "btn waves-effect waves-light" do %>
+    New Game
+    <i class="material-icons left">play_arrow</i>
+    <% end %>
+<% end %>
