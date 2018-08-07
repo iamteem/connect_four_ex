@@ -294,6 +294,15 @@ defmodule ConnectFour.Games do
     Move.changeset(move, %{})
   end
 
-  def start_game(_) do
+  def start_game(user) do
+  end
+
+  def join_game(game, user) do
+  end
+
+  def leave_game(game, user) do
+  end
+
+  def make_move(game, user, column) do
   end
 end

@@ -43,6 +43,8 @@ defmodule ConnectFour.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
+      {:fsm, "~> 0.3.1"},
+      {:exactor, "~> 2.1.0"},
     ]
   end
 

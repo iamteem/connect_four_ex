@@ -5,9 +5,9 @@ defmodule ConnectFour.Games.Game do
 
   schema "games" do
     field :state, :string
-    field :player_one_id, :id
-    field :player_two_id, :id
-    field :winner_id, :id
+    belongs_to :player_one, Player
+    belongs_to :player_two, Player
+    belongs_to :winner, Player
 
     timestamps()
   end
