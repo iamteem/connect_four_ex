@@ -7,7 +7,8 @@
   - State "DONE"       from "TODO"       [2018-08-09 Thu 16:11]
 * DONE Sign out
   CLOSED: [2018-08-09 Thu 16:11]
-* TODO Create Game
+* DOING Create Game
+  - State "DOING"      from "TODO"       [2018-08-09 Thu 16:12]
 * TODO Join Game using a URL
 * TODO Spectate
 * TODO Chat in Game
