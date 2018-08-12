@@ -19,3 +19,12 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
+
+import {ConnectFourGame} from "./game"
+
+const canvas = document.getElementById('game_canvas')
+
+if (canvas) {
+  const game = new ConnectFourGame(canvas)
+  game.loadBoard()
+}

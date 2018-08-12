@@ -14,6 +14,10 @@ defmodule ConnectFourWeb.GameController do
     redirect conn, to: page_path(conn, :index)
   end
 
+  def show(conn, _params, _current_user) do
+    render conn, "show.html"
+  end
+
   def action(conn, _) do
     args = [conn, conn.params, conn.assigns.current_user]
     apply(__MODULE__, action_name(conn), args)
