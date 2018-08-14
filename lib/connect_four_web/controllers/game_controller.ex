@@ -11,7 +11,7 @@ defmodule ConnectFourWeb.GameController do
 
   def create(conn, _params, current_user) do
     changeset = Games.start_game(current_user)
-    redirect conn, to: page_path(conn, :index)
+    redirect conn, to: game_path(conn, :show, 12)
   end
 
   def show(conn, _params, _current_user) do
