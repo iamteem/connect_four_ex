@@ -1,3 +1,7 @@
 <div class="row">
-  <canvas id="game_canvas" height="500" width="550"></canvas>
+  <div class="col s12">
+    <p class="center-align">
+      <canvas id="game_canvas" height="1000" width="600" class="center"></canvas>
+    </p>
+  </div>
 </div>

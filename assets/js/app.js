@@ -1,6 +1,6 @@
 import "phoenix_html"
 import socket from "./socket"
-import {ConnectFourGame} from "./game"
+import {ConnectFourGame} from "./game/game"
 
 const canvas = document.getElementById('game_canvas')
 if (canvas) {
