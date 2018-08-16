@@ -48,19 +48,18 @@ export class Board {
   }
 
   tryDropDisk(e) {
-    if (this.targetColumn) {
+    if (this.targetColumn != null) {
       this.clearShadowDisk();
       this.stage.update(e);
       this.disk = new createjs.Shape(this.graphicsForDisk('red'));
-      this.stage.addChild(this.disk);
+      this.stage.addChildAt(this.disk, 0);
       const dest = this.centerFromCell(this.targetColumn, this.getEmptyCellRow());
       createjs.Tween.get(this.disk).to(dest, 500);
     }
   }
 
-  centerFromCell(x, y) {
-    return {x: (this.cellWidth + 0.5) * x,
-            y: (this.cellWidth + 1.5) * y};
+  centerFromCell(col, row) {
+    return {x: 0, y: this.cellWidth * row + this.cellWidth};
   }
 
   getEmptyCellRow() {
