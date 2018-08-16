@@ -22,13 +22,11 @@ export class Board {
     }
     this.boardContainer.y = this.cellWidth;
     this.stage.addChild(this.boardContainer);
-    this.stage.update();
 
     this.stage.addEventListener('stagemousemove', e => {
       if (!this.stage.mouseInBounds) {
         this.targetColumn = null;
         this.clearShadowDisk();
-        this.stage.update(e);
         return;
       }
       let column = this.getTargetedColumn(e.stageX, e.stageY);
@@ -36,7 +34,6 @@ export class Board {
         this.targetColumn = column;
         this.clearShadowDisk();
         this.showShadowDisk();
-        this.stage.update(e);
       }
     });
 
@@ -50,7 +47,6 @@ export class Board {
   tryDropDisk(e) {
     if (this.targetColumn != null) {
       this.clearShadowDisk();
-      this.stage.update(e);
       this.disk = new createjs.Shape(this.graphicsForDisk('red'));
       this.stage.addChildAt(this.disk, 0);
       const dest = this.centerFromCell(this.targetColumn, this.getEmptyCellRow());

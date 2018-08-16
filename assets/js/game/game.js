@@ -8,7 +8,7 @@ export class ConnectFourGame {
   }
 
   setupTicker() {
-    createjs.Ticker.framerate = 30;
+    createjs.Ticker.framerate = 60;
     createjs.Ticker.addEventListener("tick", () => {
       this.stage.update();
     });
