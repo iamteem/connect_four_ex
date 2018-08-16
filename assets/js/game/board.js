@@ -25,14 +25,46 @@ export class Board {
     this.stage.update();
 
     this.stage.addEventListener('stagemousemove', e => {
-      let column = this.getTargetedColumn(e.stageX, e.stageY);
-      if (column != this.targetColumn) {
+      if (!this.stage.mouseInBounds) {
+        this.targetColumn = null;
         this.clearShadowDisk();
-        this.showShadowDiskAtColumn(column);
+        this.stage.update(e);
+        return;
+      }
+      let column = this.getTargetedColumn(e.stageX, e.stageY);
+      if (column < 7 && column != this.targetColumn) {
         this.targetColumn = column;
+        this.clearShadowDisk();
+        this.showShadowDisk();
         this.stage.update(e);
       }
     });
+
+    this.stage.addEventListener('stagemouseup', e => {
+      if (this.stage.mouseInBounds) {
+        this.tryDropDisk(e);
+      }
+    });
+  }
+
+  tryDropDisk(e) {
+    if (this.targetColumn) {
+      this.clearShadowDisk();
+      this.stage.update(e);
+      this.disk = new createjs.Shape(this.graphicsForDisk('red'));
+      this.stage.addChild(this.disk);
+      const dest = this.centerFromCell(this.targetColumn, this.getEmptyCellRow());
+      createjs.Tween.get(this.disk).to(dest, 500);
+    }
+  }
+
+  centerFromCell(x, y) {
+    return {x: (this.cellWidth + 0.5) * x,
+            y: (this.cellWidth + 1.5) * y};
+  }
+
+  getEmptyCellRow() {
+    return 5;
   }
 
   getTargetedColumn(stageX, stageY) {
@@ -40,19 +72,20 @@ export class Board {
     return Math.floor(point.x / this.cellWidth);
   }
 
-  showShadowDiskAtColumn(column) {
-    let g = new createjs.Graphics();
-    g.beginFill('gray').
-      drawCircle(column * this.cellWidth + this.cellWidth / 2, this.cellWidth / 2 + 4, this.cellWidth / 2 - 4);
-    this.shadowDisk = new createjs.Shape(g);
+  showShadowDisk() {
+    this.shadowDisk = new createjs.Shape(this.graphicsForDisk());
     this.stage.addChild(this.shadowDisk);
+  }
+
+  graphicsForDisk(color = 'gray') {
+    let g = new createjs.Graphics();
+    g.beginFill(color).
+      drawCircle(this.targetColumn * this.cellWidth + this.cellWidth / 2, this.cellWidth / 2 + 4, this.cellWidth / 2 - 4);
+    return g;
   }
 
   clearShadowDisk() {
     this.stage.removeChild(this.shadowDisk);
-  }
-
-  renderDropButtons() {
   }
 
   createCell(x, y, width, radius) {
