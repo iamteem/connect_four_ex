@@ -12,17 +12,16 @@ export class Board {
     for (let row = 0; row < 6; row++) {
       for (let col = 0; col < 7; col++) {
         this.boardContainer.addChild(
-          this.createCell(
-            col * width,
-            row * width,
-            width,
-            radius
-          ));
+          this.createCell(col * width, row * width, width, radius));
       }
     }
     this.boardContainer.y = this.cellWidth;
     this.stage.addChild(this.boardContainer);
 
+    this.setupListeners();
+  }
+
+  setupListeners() {
     this.stage.addEventListener('stagemousemove', e => {
       if (!this.stage.mouseInBounds) {
         this.targetColumn = null;
@@ -44,14 +43,51 @@ export class Board {
     });
   }
 
+  /*
+    example data: each element is a column, with the first as the left-most column.
+    [
+    [null, null, null, null, null, 'player_one'],
+    [null, null, null, null, 'player_one', 'player_two'],
+    [null, null, null, null, null, 'player_one'],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, 'player_two'],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null]
+    ]
+  */
+  withData(data) {
+    Array.from(Array(7).keys()).map((_, column) => {
+      Array.from(Array(6).keys()).map((_, row) => {
+        const val = data[column][row];
+        if (val != null) {
+          const color = this.playerToColor(val);
+          this.putDisk({color: color, column: column, row: row});
+        }
+      });
+    });
+  }
+
+  playerToColor(player) {
+    if (player == 'player_one') {
+      return 'yellow';
+    } else {
+      return 'red';
+    }
+  }
+
   tryDropDisk(e) {
     if (this.targetColumn != null) {
       this.clearShadowDisk();
-      this.disk = new createjs.Shape(this.graphicsForDisk('red'));
+      this.disk = new createjs.Shape(this.graphicsForDisk({color: 'red', row: -1, column: this.targetColumn}));
       this.stage.addChildAt(this.disk, 0);
       const dest = this.centerFromCell(this.targetColumn, this.getEmptyCellRow());
       createjs.Tween.get(this.disk).to(dest, 500);
     }
+  }
+
+  putDisk({column, row, color}) {
+    const disk = new createjs.Shape(this.graphicsForDisk({color: color, column: column, row: row}));
+    this.stage.addChildAt(disk, 0);
   }
 
   centerFromCell(col, row) {
@@ -68,14 +104,16 @@ export class Board {
   }
 
   showShadowDisk() {
-    this.shadowDisk = new createjs.Shape(this.graphicsForDisk());
+    this.shadowDisk = new createjs.Shape(this.graphicsForDisk({column: this.targetColumn}));
     this.stage.addChild(this.shadowDisk);
   }
 
-  graphicsForDisk(color = 'gray') {
+  graphicsForDisk({color: color = 'gray', column, row: row = -1}) {
     let g = new createjs.Graphics();
-    g.beginFill(color).
-      drawCircle(this.targetColumn * this.cellWidth + this.cellWidth / 2, this.cellWidth / 2 + 4, this.cellWidth / 2 - 4);
+    const x = column * this.cellWidth + this.cellWidth / 2,
+          y = (row + 1) * this.cellWidth + this.cellWidth / 2 + 4,
+          radius = this.cellWidth / 2 - 4;
+    g.beginFill(color).drawCircle(x, y, radius);
     return g;
   }
 

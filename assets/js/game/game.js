@@ -1,9 +1,9 @@
-import {Board} from './board'
+import {Board} from './board';
 
 export class ConnectFourGame {
   constructor(canvas) {
     this.stage = new createjs.Stage(canvas);
-    this.stage.snapToPixel = true
+    this.stage.snapToPixel = true;
     this.setupTicker();
   }
 
@@ -17,9 +17,5 @@ export class ConnectFourGame {
   render() {
     this.board = new Board(this.stage);
     this.board.render();
-    this.drawGrid();
-  }
-
-  drawGrid() {
   }
 }
