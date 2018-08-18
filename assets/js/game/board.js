@@ -1,4 +1,4 @@
-export class Board {
+export default class Board {
   constructor(stage) {
     this.stage = stage;
     this.cellWidth = 80;

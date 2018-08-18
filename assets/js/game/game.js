@@ -1,4 +1,5 @@
-import {Board} from './board';
+import Board from './board';
+import socket from './socket';
 
 export class ConnectFourGame {
   constructor(canvas) {
@@ -17,5 +18,14 @@ export class ConnectFourGame {
   render() {
     this.board = new Board(this.stage);
     this.board.render();
+    this.setupChannel();
+  }
+
+  setupChannel() {
+    this.gameChannel = socket.channel(`games:${gameId}`);
+    this.gameChannel.join()
+      .receive('ok', resp => console.log("joined the game channel", resp))
+      .receive('error', reason => console.log("join failed", reason));
+    this.gameChannel.on("player_joined", this.onPlayerJoined);
   }
 }
